@@ -47,9 +47,12 @@ public:
 
 	int getStrikes(const string& guessNumber) {
 		int strikes = 0;
-		if (guessNumber[0] == question[0]) strikes++;
-		if (guessNumber[1] == question[1]) strikes++;
-		if (guessNumber[2] == question[2]) strikes++;
+
+		for (int i = 0; i < 3; ++i) {
+			if (guessNumber[i] == question[i]) {
+				strikes++;
+			}
+		}
 		return strikes;
 	}
 
