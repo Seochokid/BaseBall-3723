@@ -16,10 +16,12 @@ public:
 
 	GuessResult guess(const string& guessNumber) {
 		assertIllegalArgument(guessNumber);
-		if (guessNumber == question) {
-			return { true, 3, 0 };
-		}
-		return { false, 0, 0 };
+		return { isGuessCorrect(guessNumber), getStrikes(guessNumber), getBalls(guessNumber) };
+	}
+
+	bool isGuessCorrect(const std::string& guessNumber)
+	{
+		return guessNumber == question;
 	}
 
 	void assertIllegalArgument(const std::string& guessNumber)
@@ -43,6 +45,29 @@ public:
 		return guessNumber[0] == guessNumber[1] ||
 			guessNumber[0] == guessNumber[2] ||
 			guessNumber[1] == guessNumber[2];
+	}
+
+	int getStrikes(const string& guessNumber) {
+		int strikes = 0;
+
+		for (int i = 0; i < 3; ++i) {
+			if (guessNumber[i] == question[i]) {
+				strikes++;
+			}
+		}
+		return strikes;
+	}
+
+	int getBalls(const string& guessNumber) {
+		int balls = 0;
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
+				if (i != j && guessNumber[i] == question[j]) {
+					balls++;
+				}
+			}
+		}
+		return balls;
 	}
 
 private:
